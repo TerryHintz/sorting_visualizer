@@ -1,27 +1,17 @@
 import React, {Component} from 'react';
-import './sort.css'
+import './sort.css';
 
-const sorting_methods = [
-    "Merge Sort",
-    "Quick Sort",
-    "Heap Sort",
-    "Bubble Sort",
-]
+import Graph from './graph';
+import Header from './header'
 
 class Sort extends Component {
     state = {
         arr: [],
-        numbers: 1,
-        numsInput: 100,
+        numbers: 100,
     }
 
     componentDidMount(){
         this.randomizeArray(100);
-    }
-
-    handleChange = (event) =>{
-        const {name, value} = event.target;
-        this.setState({[name]: value})
     }
 
     randomizeArray = (numbers) => {
@@ -40,39 +30,13 @@ class Sort extends Component {
 
         return(
             <div>
-                <div className='header'>
-                    <div className='header-section'>
-                        <span className='header-text'>{'Number of Integers:'}</span>
-                        <input
-                            type='text'
-                            className='header-input'
-                            name='numsInput'
-                            value={this.state.numsInput}
-                            onChange={this.handleChange}
-                        />
-                        <span className='header-button' onClick={() => this.randomizeArray(this.state.numsInput)}>{'Randomize'}</span>
-                    </div>
-                    <div className='header-section'>
-                        {sorting_methods.map((method) => {
-                            return (
-                                <span className='header-button'>
-                                    {method}
-                                </span>
-                            )
-                        })}
-                    </div>
-                </div>
-                <div className='sort-container'>
-                    {this.state.arr.map((num, index) => {
-                        return (
-                            <div 
-                                key={index}
-                                style={{height: num + 'px', width: block_width}}
-                                className='number-block'>
-                            </div>
-                        )
-                    })}
-                </div>
+                <Header
+                    randomizeArray = {this.randomizeArray}
+                />
+                <Graph
+                    arr = {this.state.arr}
+                    block_width = {block_width}
+                />
             </div>
         )
     }
