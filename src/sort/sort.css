@@ -1,0 +1,52 @@
+.number-block {
+    width: 5px;
+    background-color: cornflowerblue;
+}
+
+.sort-container {
+    display: flex;
+    align-items: flex-end;
+    width: 95%;
+    margin: auto;
+    height: 500px;
+}
+
+.header {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+}
+
+.header-button {
+    padding: 10px;
+    margin: 20px 10px;
+    cursor: pointer;
+    background-color: cornflowerblue;
+    border-radius: 5px;
+}
+
+.header-input {
+    margin: 0 10px;
+    width: 50px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.header-text {
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
