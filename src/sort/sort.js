@@ -24,6 +24,43 @@ class Sort extends Component {
         this.setState({arr, numbers});
     }
 
+    mergeSort = (arr) => {
+        const nums = arr.length;
+        const mid = Math.floor(nums/2);
+        if(nums <= 1){
+            return arr;
+        }
+        let arr1 = arr.slice(0, mid);
+        let arr2 = arr.slice(mid);
+
+        arr1 = this.mergeSort(arr1);
+        arr2 = this.mergeSort(arr2);
+
+        return this.mergeSortedArray(arr1, arr2);
+    }
+
+    mergeSortedArray = (arr1, arr2) => {
+        let res = [];
+        while(arr1.length && arr2.length){
+            if(arr1[0] <= arr2[0]){
+                res.push(arr1[0]);
+                arr1.shift();
+            } else {
+                res.push(arr2[0]);
+                arr2.shift();
+            }
+        }
+        while(arr1.length){
+            res.push(arr1[0]);
+            arr1.shift();
+        }
+        while(arr2.length){
+            res.push(arr2[0]);
+            arr2.shift();
+        }
+        return res;
+    }
+
     render() {
 
         const block_width = window.innerWidth / this.state.numbers;
