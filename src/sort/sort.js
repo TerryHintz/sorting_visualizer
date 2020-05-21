@@ -24,41 +24,58 @@ class Sort extends Component {
         this.setState({arr, numbers});
     }
 
-    mergeSort = (arr) => {
-        const nums = arr.length;
-        const mid = Math.floor(nums/2);
-        if(nums <= 1){
-            return arr;
+    handleSort = (name) => {
+        if(name === 'Merge Sort'){
+            this.mergeSort(this.state.arr, 0, this.state.numbers-1);
         }
-        let arr1 = arr.slice(0, mid);
-        let arr2 = arr.slice(mid);
-
-        arr1 = this.mergeSort(arr1);
-        arr2 = this.mergeSort(arr2);
-
-        return this.mergeSortedArray(arr1, arr2);
     }
 
-    mergeSortedArray = (arr1, arr2) => {
-        let res = [];
-        while(arr1.length && arr2.length){
-            if(arr1[0] <= arr2[0]){
-                res.push(arr1[0]);
-                arr1.shift();
+    mergeSort = (arr, low, high) => {
+        if(low < high){
+            let mid = Math.floor((low+high)/2);
+            this.mergeSort(arr, low, mid);
+            this.mergeSort(arr, mid+1, high);
+            this.mergeSortedArray(arr, low, mid, high);
+        }
+    }
+
+    mergeSortedArray = (arr, low, mid, high) => {
+        let i = 0;
+        let j = 0;
+        const nums1 = mid - low + 1;
+        const nums2 = high - mid;
+        let arr1 = [];
+        let arr2 = [];
+        for(i; i<nums1; i++){
+            arr1.push(arr[low+i]);
+        }
+        for(j; j<nums2; j++){
+            arr2.push(arr[mid+1+j])
+        }
+        i=0;
+        j=0;
+        let k = low;
+        while(i < nums1 && j < nums2){
+            if(arr1[i] <= arr2[j]){
+                arr[k] = arr1[i];
+                i++;
             } else {
-                res.push(arr2[0]);
-                arr2.shift();
+                arr[k] = arr2[j];
+                j++;
             }
+            k++;
         }
-        while(arr1.length){
-            res.push(arr1[0]);
-            arr1.shift();
+        while(i < nums1){
+            arr[k] = arr1[i];
+            i++;
+            k++;
         }
-        while(arr2.length){
-            res.push(arr2[0]);
-            arr2.shift();
+        while(j < nums2){
+            arr[k] = arr2[j];
+            j++;
+            k++;
         }
-        return res;
+        this.setState({arr});
     }
 
     render() {
@@ -69,6 +86,7 @@ class Sort extends Component {
             <div>
                 <Header
                     randomizeArray = {this.randomizeArray}
+                    handleSort = {this.handleSort}
                 />
                 <Graph
                     arr = {this.state.arr}

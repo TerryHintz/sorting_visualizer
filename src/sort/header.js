@@ -35,7 +35,11 @@ class Header extends Component {
                     <div className='header-section'>
                         {sorting_methods.map((method) => {
                             return (
-                                <span key={method} className='header-button'>
+                                <span
+                                    key={method}
+                                    className='header-button'
+                                    onClick={() => this.props.handleSort(method)}
+                                >
                                     {method}
                                 </span>
                             )
