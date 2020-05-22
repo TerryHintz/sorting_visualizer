@@ -42,7 +42,8 @@ class Sort extends Component {
             this.mergeSort(copy, 0, nums-1, []);
         } else if(method === 'Quick Sort'){
             let copy = arr.slice(0);
-            this.quickSort(copy, 0, nums-1);
+            console.log(this.quickSort(copy, 0, nums-1));
+            // this.quickSort(copy, 0, nums-1);
         }
     }
 
@@ -132,25 +133,31 @@ class Sort extends Component {
     // Quick Sort Start
     quickSort = (arr, low, high) => {
         if(low < high){
-            const mid = this.quickPartition(arr, low, high);
-            this.quickSort(arr, low, mid-1);
-            this.quickSort(arr, mid+1, high);
+            const middle = this.quickPartition(arr, low, high);
+            this.quickSort(arr, low, middle);
+            this.quickSort(arr, middle+1, high);
         }
         return arr;
     }
 
     quickPartition = (arr, low, high) => {
-        const pivot = arr[high];
-        let i = low - 1;
-
-        for(let j=low; j <=high - 1; j++){
-            if(arr[j] < pivot){
+        const pivot = arr[Math.floor((high+low)/2)];
+        let i = low;
+        let j = high;
+        while(true){
+            while(pivot > arr[i]){
                 i++;
-                this.swap(arr, i, j);
             }
+            while(pivot < arr[j]){
+                j--;
+            }
+            if(i >= j){
+                return j;
+            }
+            this.swap(arr, i, j);
+            i++;
+            j--;
         }
-        this.swap(arr, i+1, high);
-        return i+1;
     }
 
     swap = (arr, i, j) => {
