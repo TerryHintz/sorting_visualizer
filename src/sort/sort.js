@@ -52,8 +52,14 @@ class Sort extends Component {
         const DEFAULT_COLOR = 'cornflowerblue';
         const SWAP_COLOR = 'Salmon';
         const PIVOT_COLOR = 'RebeccaPurple';
-        const speed = 500;
+        const speed = 10;
         // slow = 500
+        // med = 100
+        // fast = 10
+        let delay = 1;
+        if(this.state.method === 'Merge Sort'){
+            delay = 2;
+        }
         const animations = this.state.animations;
         const len = animations.length;
         for(let i = 0; i<len; i++){
@@ -62,7 +68,11 @@ class Sort extends Component {
                 const block = arrayBars[animations[i].pos].style;
                 setTimeout(() => {
                     block.height = animations[i].val + 'px';
+                    block.backgroundColor = SWAP_COLOR;
                 }, i * speed);
+                setTimeout(() => {
+                    block.backgroundColor = DEFAULT_COLOR;
+                }, i * speed + speed);
             } else if (animations[i].type === 'highlight') {
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
@@ -73,7 +83,7 @@ class Sort extends Component {
                 setTimeout(() => {
                 block1.backgroundColor = DEFAULT_COLOR;
                 block2.backgroundColor = DEFAULT_COLOR;
-                }, i * speed + speed);
+                }, i * speed + delay*speed);
             } else if (animations[i].type === 'swap'){
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
@@ -146,14 +156,14 @@ class Sort extends Component {
         }
         while(i < nums1){
             arr[k] = arr1[i];
-            animations.push({type: 'highlight', pos1: low+i, pos2: low+i});
+            // animations.push({type: 'highlight', pos1: low+i, pos2: low+i});
             animations.push({type: 'set', pos: k, val: arr1[i]});
             i++;
             k++;
         }
         while(j < nums2){
             arr[k] = arr2[j];
-            animations.push({type: 'highlight', pos1: mid+1+j, pos2: mid+1+j});
+            // animations.push({type: 'highlight', pos1: mid+1+j, pos2: mid+1+j});
             animations.push({type: 'set', pos: k, val: arr2[j]});
             j++;
             k++;
