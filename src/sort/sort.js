@@ -9,6 +9,7 @@ class Sort extends Component {
         arr: [],
         animations: [],
         numbers: 100,
+        method: "Merge Sort"
     }
 
     componentDidMount(){
@@ -23,15 +24,18 @@ class Sort extends Component {
             arr.push(randomNum);
         }
         this.setState({arr, numbers});
+        this.handleSort(this.state.method, arr, numbers);
     }
 
-    handleSort = (name) => {
-        if(name === 'Animate'){
+    handleSort = (method, arr, nums) => {
+        if(method === 'Animate'){
             this.animate();
+            return;
         }
-        if(name === 'Merge Sort'){
-            let copy = this.state.arr.slice(0);
-            this.mergeSort(copy, 0, this.state.numbers-1, []);
+        this.setState({method});
+        if(method === 'Merge Sort'){
+            let copy = arr.slice(0);
+            this.mergeSort(copy, 0, nums-1, []);
         }
     }
 
@@ -113,7 +117,7 @@ class Sort extends Component {
             j++;
             k++;
         }
-        this.setState({animations: animations});
+        this.setState({animations});
     }
 
     render() {
