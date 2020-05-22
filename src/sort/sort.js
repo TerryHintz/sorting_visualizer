@@ -8,7 +8,7 @@ class Sort extends Component {
     state = {
         arr: [],
         animations: [],
-        numbers: 10,
+        numbers: 100,
     }
 
     componentDidMount(){
@@ -36,15 +36,28 @@ class Sort extends Component {
     }
 
     animate = () => {
+        const speed = 20;
         const animations = this.state.animations;
         const len = animations.length;
         for(let i = 0; i<len; i++){
             const arrayBars = document.getElementsByClassName('number-block');
-            const barStyle = arrayBars[animations[i].pos].style;
-            setTimeout(() => {
-                barStyle.height = animations[i].val + 'px';
-              }, i * 10);
-            
+            if(animations[i].change){
+                const block = arrayBars[animations[i].pos].style;
+                setTimeout(() => {
+                    block.height = animations[i].val + 'px';
+                }, i * speed);
+            } else {
+                const block1 = arrayBars[animations[i].pos1].style;
+                const block2 = arrayBars[animations[i].pos2].style;
+                setTimeout(() => {
+                    block1.backgroundColor = 'black';
+                    block2.backgroundColor = 'black';
+                  }, i * speed);
+                  setTimeout(() => {
+                    block1.backgroundColor = 'cornflowerblue';
+                    block2.backgroundColor = 'cornflowerblue';
+                  }, i * speed + 2*speed);
+            }
         }
     }
 
@@ -74,26 +87,29 @@ class Sort extends Component {
         j=0;
         let k = low;
         while(i < nums1 && j < nums2){
+            animations.push({change: false, pos1: low+i, pos2: mid+1+j});
             if(arr1[i] <= arr2[j]){
                 arr[k] = arr1[i];
-                animations.push({pos: k, val: arr1[i]});
+                animations.push({change: true, pos: k, val: arr1[i]});
                 i++;
             } else {
                 arr[k] = arr2[j];
-                animations.push({pos: k, val: arr2[j]});
+                animations.push({change: true, pos: k, val: arr2[j]});
                 j++;
             }
             k++;
         }
         while(i < nums1){
             arr[k] = arr1[i];
-            animations.push({pos: k, val: arr1[i]});
+            animations.push({change: false, pos1: low+i, pos2: low+i});
+            animations.push({change: true, pos: k, val: arr1[i]});
             i++;
             k++;
         }
         while(j < nums2){
             arr[k] = arr2[j];
-            animations.push({pos: k, val: arr2[j]});
+            animations.push({change: false, pos1: mid+1+j, pos2: mid+1+j});
+            animations.push({change: true, pos: k, val: arr2[j]});
             j++;
             k++;
         }

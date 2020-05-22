@@ -11,7 +11,7 @@ const sorting_methods = [
 
 class Header extends Component {
     state = {
-        numsInput: 10,
+        numsInput: 100,
     }
 
     handleChange = (event) =>{
