@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import './sort.css';
 
 import Graph from './graph';
-import Header from './header'
+import Header from './header';
+
+const HIGHTLIGHT_COLOR = 'Gold';
+const DEFAULT_COLOR = 'cornflowerblue';
+const SWAP_COLOR = 'FireBrick';
+const PIVOT_COLOR = 'RebeccaPurple';
+const DONE_COLOR = 'LimeGreen';
 
 class Sort extends Component {
     state = {
@@ -16,7 +22,7 @@ class Sort extends Component {
         this.randomizeArray(this.state.numbers);
     }
 
-    randomizeArray = (numbers) => {
+    randomizeArray = (numbers, color) => {
         let arr = [];
         let i=0;
         for(i; i<numbers; i++){
@@ -25,6 +31,18 @@ class Sort extends Component {
         }
         this.setState({arr, numbers});
         this.handleSort(this.state.method, arr, numbers);
+        if(color){
+            this.resetColor();
+        }
+    }
+
+    resetColor = () => {
+        const arrayBars = document.getElementsByClassName('number-block');
+        const nums = this.state.numbers;
+        for(let i=0; i<nums; i++){
+            const block = arrayBars[i].style;
+            block.backgroundColor = DEFAULT_COLOR;
+        }
     }
 
     handleSort = (method, arr, nums) => {
@@ -61,12 +79,7 @@ class Sort extends Component {
     }
 
     animate = () => {
-        const HIGHTLIGHT_COLOR = 'PaleGreen';
-        const DEFAULT_COLOR = 'cornflowerblue';
-        const SWAP_COLOR = 'Salmon';
-        const PIVOT_COLOR = 'RebeccaPurple';
-        const DONE_COLOR = 'BurlyWood';
-        const speed = 1000;
+        const speed = 10;
         // slow = 500
         // med = 100
         // fast = 10
@@ -76,8 +89,8 @@ class Sort extends Component {
         }
         const animations = this.state.animations;
         const len = animations.length;
+        const arrayBars = document.getElementsByClassName('number-block');
         for(let i = 0; i<len; i++){
-            const arrayBars = document.getElementsByClassName('number-block');
             if(animations[i].type === 'set'){
                 const block = arrayBars[animations[i].pos].style;
                 setTimeout(() => {

@@ -32,7 +32,7 @@ class Header extends Component {
                             value={this.state.numsInput}
                             onChange={this.handleChange}
                         />
-                        <span className='header-button' onClick={() => this.props.randomizeArray(this.state.numsInput)}>{'Randomize'}</span>
+                        <span className='header-button' onClick={() => this.props.randomizeArray(this.state.numsInput, true)}>{'Randomize'}</span>
                     </div>
                     <div className='header-section'>
                         {sorting_methods.map((method) => {
