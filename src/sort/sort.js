@@ -218,6 +218,24 @@ class Sort extends Component {
     }
     // Quick Sort End
 
+    // Bubble Sort Start
+    bubbleSort = (arr) => {
+        const high = arr.length - 1;
+        let swapped = false;
+        for(let i=0; i<high; i++){
+            for(let j=0; j<high-i; j++){
+                if(arr[j] > arr[j+1]){
+                    this.swap(arr, j, j+1);
+                    swapped = true;
+                }
+            }
+            if(!swapped){
+                return;
+            }
+        }
+        console.log(arr);
+    }
+
     render() {
 
         const block_width = window.innerWidth / this.state.numbers;
