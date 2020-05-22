@@ -7,11 +7,12 @@ import Header from './header'
 class Sort extends Component {
     state = {
         arr: [],
-        numbers: 100,
+        animations: [],
+        numbers: 10,
     }
 
     componentDidMount(){
-        this.randomizeArray(100);
+        this.randomizeArray(this.state.numbers);
     }
 
     randomizeArray = (numbers) => {
@@ -25,21 +26,38 @@ class Sort extends Component {
     }
 
     handleSort = (name) => {
+        if(name === 'Animate'){
+            this.animate();
+        }
         if(name === 'Merge Sort'){
-            this.mergeSort(this.state.arr, 0, this.state.numbers-1);
+            let copy = this.state.arr.slice(0);
+            this.mergeSort(copy, 0, this.state.numbers-1, []);
         }
     }
 
-    mergeSort = (arr, low, high) => {
+    animate = () => {
+        const animations = this.state.animations;
+        const len = animations.length;
+        for(let i = 0; i<len; i++){
+            const arrayBars = document.getElementsByClassName('number-block');
+            const barStyle = arrayBars[animations[i].pos].style;
+            setTimeout(() => {
+                barStyle.height = animations[i].val + 'px';
+              }, i * 10);
+            
+        }
+    }
+
+    mergeSort = (arr, low, high, animations) => {
         if(low < high){
             let mid = Math.floor((low+high)/2);
-            this.mergeSort(arr, low, mid);
-            this.mergeSort(arr, mid+1, high);
-            this.mergeSortedArray(arr, low, mid, high);
+            this.mergeSort(arr, low, mid, animations);
+            this.mergeSort(arr, mid+1, high, animations);
+            this.mergeSortedArray(arr, low, mid, high, animations);
         }
     }
 
-    mergeSortedArray = (arr, low, mid, high) => {
+    mergeSortedArray = (arr, low, mid, high, animations) => {
         let i = 0;
         let j = 0;
         const nums1 = mid - low + 1;
@@ -58,24 +76,28 @@ class Sort extends Component {
         while(i < nums1 && j < nums2){
             if(arr1[i] <= arr2[j]){
                 arr[k] = arr1[i];
+                animations.push({pos: k, val: arr1[i]});
                 i++;
             } else {
                 arr[k] = arr2[j];
+                animations.push({pos: k, val: arr2[j]});
                 j++;
             }
             k++;
         }
         while(i < nums1){
             arr[k] = arr1[i];
+            animations.push({pos: k, val: arr1[i]});
             i++;
             k++;
         }
         while(j < nums2){
             arr[k] = arr2[j];
+            animations.push({pos: k, val: arr2[j]});
             j++;
             k++;
         }
-        this.setState({arr});
+        this.setState({animations: animations});
     }
 
     render() {

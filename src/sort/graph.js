@@ -7,7 +7,8 @@ class Graph extends Component {
             <div className='sort-container'>
                 {this.props.arr.map((num, index) => {
                     return (
-                        <div 
+                        <div
+                            id={index}
                             key={index}
                             style={{height: num + 'px', width: this.props.block_width}}
                             className='number-block'>

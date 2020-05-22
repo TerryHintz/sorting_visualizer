@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './sort.css';
 
 const sorting_methods = [
+    "Animate",
     "Merge Sort",
     "Quick Sort",
     "Heap Sort",
@@ -10,7 +11,7 @@ const sorting_methods = [
 
 class Header extends Component {
     state = {
-        numsInput: 100,
+        numsInput: 10,
     }
 
     handleChange = (event) =>{
