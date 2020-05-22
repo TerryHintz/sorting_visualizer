@@ -52,12 +52,12 @@ class Sort extends Component {
         const len = animations.length;
         for(let i = 0; i<len; i++){
             const arrayBars = document.getElementsByClassName('number-block');
-            if(animations[i].change){
+            if(animations[i].type == 'set'){
                 const block = arrayBars[animations[i].pos].style;
                 setTimeout(() => {
                     block.height = animations[i].val + 'px';
                 }, i * speed);
-            } else {
+            } else if (animations[i].type == 'highlight') {
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
                 setTimeout(() => {
@@ -99,29 +99,29 @@ class Sort extends Component {
         j=0;
         let k = low;
         while(i < nums1 && j < nums2){
-            animations.push({change: false, pos1: low+i, pos2: mid+1+j});
+            animations.push({type: 'highlight', pos1: low+i, pos2: mid+1+j});
             if(arr1[i] <= arr2[j]){
                 arr[k] = arr1[i];
-                animations.push({change: true, pos: k, val: arr1[i]});
+                animations.push({type: 'set', pos: k, val: arr1[i]});
                 i++;
             } else {
                 arr[k] = arr2[j];
-                animations.push({change: true, pos: k, val: arr2[j]});
+                animations.push({type: 'set', pos: k, val: arr2[j]});
                 j++;
             }
             k++;
         }
         while(i < nums1){
             arr[k] = arr1[i];
-            animations.push({change: false, pos1: low+i, pos2: low+i});
-            animations.push({change: true, pos: k, val: arr1[i]});
+            animations.push({type: 'highlight', pos1: low+i, pos2: low+i});
+            animations.push({type: 'set', pos: k, val: arr1[i]});
             i++;
             k++;
         }
         while(j < nums2){
             arr[k] = arr2[j];
-            animations.push({change: false, pos1: mid+1+j, pos2: mid+1+j});
-            animations.push({change: true, pos: k, val: arr2[j]});
+            animations.push({type: 'highlight', pos1: mid+1+j, pos2: mid+1+j});
+            animations.push({type: 'set', pos: k, val: arr2[j]});
             j++;
             k++;
         }
