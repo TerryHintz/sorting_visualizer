@@ -62,7 +62,7 @@ class Sort extends Component {
         const SWAP_COLOR = 'Salmon';
         const PIVOT_COLOR = 'RebeccaPurple';
         const DONE_COLOR = 'BurlyWood';
-        const speed = 1000;
+        const speed = 10;
         // slow = 500
         // med = 100
         // fast = 10
@@ -262,7 +262,7 @@ class Sort extends Component {
     // Heap Sort Start
     heapSort = (arr, animations) => {
         const nums = arr.length;
-        for(let i = nums/2 - 1; i>=0; i--){
+        for(let i = Math.floor(nums/2) - 1; i>=0; i--){
             this.heapify(arr, nums, i, animations);
         }
         for(let j=nums-1; j>0; j--){
@@ -280,12 +280,17 @@ class Sort extends Component {
         const leftChildIndex = 2*index + 1;
         const rightChildIndex = 2*index + 2;
         let largestIndex = index;
-
-        if(leftChildIndex < nums && arr[leftChildIndex] > arr[largestIndex]){
-            largestIndex = leftChildIndex;
+        if(leftChildIndex < nums){
+            animations.push({type: 'highlight', pos1: leftChildIndex, pos2: largestIndex});
+            if(arr[leftChildIndex] > arr[largestIndex]){
+                largestIndex = leftChildIndex;
+            }
         }
-        if(rightChildIndex < nums && arr[rightChildIndex] > arr[largestIndex]){
-            largestIndex = rightChildIndex;
+        if(rightChildIndex < nums){
+            animations.push({type: 'highlight', pos1: rightChildIndex, pos2: largestIndex});
+            if(arr[rightChildIndex] > arr[largestIndex]){
+                largestIndex = rightChildIndex;
+            }
         }
         if(largestIndex != index){
             animations.push({type: 'swap', pos1: index, val1: arr[index], pos2: largestIndex, val2: arr[largestIndex]});
