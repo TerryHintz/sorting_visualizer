@@ -51,7 +51,7 @@ class Sort extends Component {
             console.log(res);
         } else if(method === 'Heap Sort'){
             let copy = arr.slice(0);
-            const res = this.heapSort(copy);
+            const res = this.heapSort(copy, []);
             console.log(res);
         }
     }
@@ -62,7 +62,7 @@ class Sort extends Component {
         const SWAP_COLOR = 'Salmon';
         const PIVOT_COLOR = 'RebeccaPurple';
         const DONE_COLOR = 'BurlyWood';
-        const speed = 10;
+        const speed = 1000;
         // slow = 500
         // med = 100
         // fast = 10
@@ -260,19 +260,23 @@ class Sort extends Component {
     // Bubble Sort End
 
     // Heap Sort Start
-    heapSort = (arr) => {
+    heapSort = (arr, animations) => {
         const nums = arr.length;
         for(let i = nums/2 - 1; i>=0; i--){
-            this.heapify(arr, nums, i);
+            this.heapify(arr, nums, i, animations);
         }
         for(let j=nums-1; j>0; j--){
+            animations.push({type: 'swap', pos1: 0, val1: arr[0], pos2: j, val2: arr[j]});
+            animations.push({type: 'done', pos: j});
             this.swap(arr, 0, j);
-            this.heapify(arr, j, 0);
+            this.heapify(arr, j, 0, animations);
         }
+        animations.push({type: 'done', pos: 0});
+        this.setState({animations});
         return arr;
     }
 
-    heapify = (arr, nums, index) => {
+    heapify = (arr, nums, index, animations) => {
         const leftChildIndex = 2*index + 1;
         const rightChildIndex = 2*index + 2;
         let largestIndex = index;
@@ -284,9 +288,11 @@ class Sort extends Component {
             largestIndex = rightChildIndex;
         }
         if(largestIndex != index){
+            animations.push({type: 'swap', pos1: index, val1: arr[index], pos2: largestIndex, val2: arr[largestIndex]});
             this.swap(arr, index, largestIndex);
-            this.heapify(arr, nums, largestIndex);
+            this.heapify(arr, nums, largestIndex, animations);
         }
+        this.setState({animations});
     }
     // Heap Sort End
 
