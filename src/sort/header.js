@@ -7,6 +7,7 @@ const sorting_methods = [
     "Quick Sort",
     "Heap Sort",
     "Bubble Sort",
+    "Insertion Sort",
 ];
 
 class Header extends Component {
