@@ -49,6 +49,10 @@ class Sort extends Component {
             let copy = arr.slice(0);
             const res = this.bubbleSort(copy, []);
             console.log(res);
+        } else if(method === 'Heap Sort'){
+            let copy = arr.slice(0);
+            const res = this.heapSort(copy);
+            console.log(res);
         }
     }
 
@@ -124,6 +128,12 @@ class Sort extends Component {
                 }, i * speed);
             }
         }
+    }
+
+    swap = (arr, i, j) => {
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     // Merge Sort Start
@@ -223,12 +233,6 @@ class Sort extends Component {
             animations.push({type: 'highlight', pos1: i, pos2: j});
         }
     }
-
-    swap = (arr, i, j) => {
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
     // Quick Sort End
 
     // Bubble Sort Start
@@ -253,6 +257,38 @@ class Sort extends Component {
         this.setState({animations});
         return arr;
     }
+    // Bubble Sort End
+
+    // Heap Sort Start
+    heapSort = (arr) => {
+        const nums = arr.length;
+        for(let i = nums/2 - 1; i>=0; i--){
+            this.heapify(arr, nums, i);
+        }
+        for(let j=nums-1; j>0; j--){
+            this.swap(arr, 0, j);
+            this.heapify(arr, j, 0);
+        }
+        return arr;
+    }
+
+    heapify = (arr, nums, index) => {
+        const leftChildIndex = 2*index + 1;
+        const rightChildIndex = 2*index + 2;
+        let largestIndex = index;
+
+        if(leftChildIndex < nums && arr[leftChildIndex] > arr[largestIndex]){
+            largestIndex = leftChildIndex;
+        }
+        if(rightChildIndex < nums && arr[rightChildIndex] > arr[largestIndex]){
+            largestIndex = rightChildIndex;
+        }
+        if(largestIndex != index){
+            this.swap(arr, index, largestIndex);
+            this.heapify(arr, nums, largestIndex);
+        }
+    }
+    // Heap Sort End
 
     render() {
 
