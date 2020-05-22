@@ -65,6 +65,7 @@ class Sort extends Component {
         }
     }
 
+    // Merge Sort Start
     mergeSort = (arr, low, high, animations) => {
         if(low < high){
             let mid = Math.floor((low+high)/2);
@@ -119,6 +120,38 @@ class Sort extends Component {
         }
         this.setState({animations});
     }
+    // Merge Sort Start
+
+    // Quick Sort Start
+    quickSort = (arr, low, high) => {
+        if(low < high){
+            const mid = this.quickPartition(arr, low, high);
+            this.quickSort(arr, low, mid-1);
+            this.quickSort(arr, mid+1, high);
+        }
+        return arr;
+    }
+
+    quickPartition = (arr, low, high) => {
+        const pivot = arr[high];
+        let i = low - 1;
+
+        for(let j=low; j <=high - 1; j++){
+            if(arr[j] < pivot){
+                i++;
+                this.swap(arr, i, j);
+            }
+        }
+        this.swap(arr, i+1, high);
+        return i+1;
+    }
+
+    swap = (arr, i, j) => {
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    // Quick Sort End
 
     render() {
 
