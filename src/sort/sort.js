@@ -66,7 +66,7 @@ class Sort extends Component {
         const SWAP_COLOR = 'Salmon';
         const PIVOT_COLOR = 'RebeccaPurple';
         const DONE_COLOR = 'BurlyWood';
-        const speed = 10;
+        const speed = 1000;
         // slow = 500
         // med = 100
         // fast = 10
@@ -296,7 +296,7 @@ class Sort extends Component {
                 largestIndex = rightChildIndex;
             }
         }
-        if(largestIndex != index){
+        if(largestIndex !== index){
             animations.push({type: 'swap', pos1: index, val1: arr[index], pos2: largestIndex, val2: arr[largestIndex]});
             this.swap(arr, index, largestIndex);
             this.heapify(arr, nums, largestIndex, animations);
@@ -311,14 +311,21 @@ class Sort extends Component {
         for(let i=1; i<nums; i++){
             const val = arr[i];
             let j = i - 1;
+            animations.push({type: 'highlight', pos1: i, pos2: j});
             while(j >= 0 && arr[j] > val){
+                animations.push({type: 'set', pos: j+1, val: arr[j]});
                 arr[j+1] = arr[j];
                 j--;
+                if(j>=0)
+                    animations.push({type: 'highlight', pos1: i, pos2: j});
             }
+            animations.push({type: 'set', pos: j+1, val: val});
             arr[j+1] = val;
         }
+        this.setState({animations});
         return arr;
     }
+    // Insertion Sort End
 
     render() {
 
