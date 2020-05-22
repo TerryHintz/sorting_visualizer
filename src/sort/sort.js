@@ -28,7 +28,7 @@ class Sort extends Component {
     }
 
     handleSort = (method, arr, nums) => {
-        if(arr.length == 0 && nums == 0){
+        if(arr.length === 0 && nums === 0){
             arr = this.state.arr;
             nums = this.state.numbers;
         }
@@ -39,11 +39,16 @@ class Sort extends Component {
         this.setState({method});
         if(method === 'Merge Sort'){
             let copy = arr.slice(0);
-            this.mergeSort(copy, 0, nums-1, []);
+            const res = this.mergeSort(copy, 0, nums-1, []);
+            console.log(res);
         } else if(method === 'Quick Sort'){
             let copy = arr.slice(0);
-            // console.log(this.quickSort(copy, 0, nums-1));
-            this.quickSort(copy, 0, nums-1, []);
+            const res = this.quickSort(copy, 0, nums-1, []);
+            console.log(res);
+        } else if(method === 'Bubble Sort'){
+            let copy = arr.slice(0);
+            const res = this.bubbleSort(copy, []);
+            console.log(res);
         }
     }
 
@@ -52,6 +57,7 @@ class Sort extends Component {
         const DEFAULT_COLOR = 'cornflowerblue';
         const SWAP_COLOR = 'Salmon';
         const PIVOT_COLOR = 'RebeccaPurple';
+        const DONE_COLOR = 'BurlyWood';
         const speed = 10;
         // slow = 500
         // med = 100
@@ -111,6 +117,11 @@ class Sort extends Component {
                     block1.backgroundColor = DEFAULT_COLOR;
                     block2.backgroundColor = DEFAULT_COLOR;
                 }, i * speed);
+            } else if (animations[i].type === 'done'){
+                const block = arrayBars[animations[i].pos].style;
+                setTimeout(() => {
+                    block.backgroundColor = DONE_COLOR;
+                }, i * speed);
             }
         }
     }
@@ -123,6 +134,7 @@ class Sort extends Component {
             this.mergeSort(arr, mid+1, high, animations);
             this.mergeSortedArray(arr, low, mid, high, animations);
         }
+        return arr;
     }
 
     mergeSortedArray = (arr, low, mid, high, animations) => {
@@ -170,7 +182,7 @@ class Sort extends Component {
         }
         this.setState({animations});
     }
-    // Merge Sort Start
+    // Merge Sort End
 
     // Quick Sort Start
     quickSort = (arr, low, high, animations) => {
@@ -179,6 +191,7 @@ class Sort extends Component {
             this.quickSort(arr, low, middle, animations);
             this.quickSort(arr, middle+1, high, animations);
         }
+        return arr;
     }
 
     quickPartition = (arr, low, high, animations) => {
@@ -219,21 +232,26 @@ class Sort extends Component {
     // Quick Sort End
 
     // Bubble Sort Start
-    bubbleSort = (arr) => {
+    bubbleSort = (arr, animations) => {
         const high = arr.length - 1;
         let swapped = false;
         for(let i=0; i<high; i++){
             for(let j=0; j<high-i; j++){
+                animations.push({type: 'highlight', pos1: j, pos2: j+1});
                 if(arr[j] > arr[j+1]){
+                    animations.push({type: 'swap', pos1: j, val1: arr[j], pos2: j+1, val2: arr[j+1]});
                     this.swap(arr, j, j+1);
                     swapped = true;
                 }
             }
+            animations.push({type: 'done', pos: high-i});
             if(!swapped){
                 return;
             }
         }
-        console.log(arr);
+        animations.push({type: 'done', pos: 0});
+        this.setState({animations});
+        return arr;
     }
 
     render() {
