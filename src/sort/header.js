@@ -39,7 +39,7 @@ class Header extends Component {
                                 <span
                                     key={method}
                                     className='header-button'
-                                    onClick={() => this.props.handleSort(method)}
+                                    onClick={() => this.props.handleSort(method, [], 0)}
                                 >
                                     {method}
                                 </span>

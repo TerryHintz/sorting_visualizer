@@ -28,6 +28,10 @@ class Sort extends Component {
     }
 
     handleSort = (method, arr, nums) => {
+        if(arr.length == 0 && nums == 0){
+            arr = this.state.arr;
+            nums = this.state.numbers;
+        }
         if(method === 'Animate'){
             this.animate();
             return;
@@ -36,6 +40,9 @@ class Sort extends Component {
         if(method === 'Merge Sort'){
             let copy = arr.slice(0);
             this.mergeSort(copy, 0, nums-1, []);
+        } else if(method === 'Quick Sort'){
+            let copy = arr.slice(0);
+            this.quickSort(copy, 0, nums-1);
         }
     }
 
