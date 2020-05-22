@@ -42,33 +42,65 @@ class Sort extends Component {
             this.mergeSort(copy, 0, nums-1, []);
         } else if(method === 'Quick Sort'){
             let copy = arr.slice(0);
-            console.log(this.quickSort(copy, 0, nums-1));
-            // this.quickSort(copy, 0, nums-1);
+            // console.log(this.quickSort(copy, 0, nums-1));
+            this.quickSort(copy, 0, nums-1, []);
         }
     }
 
     animate = () => {
-        const speed = 20;
+        const HIGHTLIGHT_COLOR = 'PaleGreen';
+        const DEFAULT_COLOR = 'cornflowerblue';
+        const SWAP_COLOR = 'Salmon';
+        const PIVOT_COLOR = 'RebeccaPurple';
+        const speed = 500;
+        // slow = 500
         const animations = this.state.animations;
         const len = animations.length;
         for(let i = 0; i<len; i++){
             const arrayBars = document.getElementsByClassName('number-block');
-            if(animations[i].type == 'set'){
+            if(animations[i].type === 'set'){
                 const block = arrayBars[animations[i].pos].style;
                 setTimeout(() => {
                     block.height = animations[i].val + 'px';
                 }, i * speed);
-            } else if (animations[i].type == 'highlight') {
+            } else if (animations[i].type === 'highlight') {
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
                 setTimeout(() => {
-                    block1.backgroundColor = 'black';
-                    block2.backgroundColor = 'black';
-                  }, i * speed);
-                  setTimeout(() => {
-                    block1.backgroundColor = 'cornflowerblue';
-                    block2.backgroundColor = 'cornflowerblue';
-                  }, i * speed + 2*speed);
+                    block1.backgroundColor = HIGHTLIGHT_COLOR;
+                    block2.backgroundColor = HIGHTLIGHT_COLOR;
+                }, i * speed);
+                setTimeout(() => {
+                block1.backgroundColor = DEFAULT_COLOR;
+                block2.backgroundColor = DEFAULT_COLOR;
+                }, i * speed + speed);
+            } else if (animations[i].type === 'swap'){
+                const block1 = arrayBars[animations[i].pos1].style;
+                const block2 = arrayBars[animations[i].pos2].style;
+                setTimeout(() => {
+                    block1.height = animations[i].val2 + 'px';
+                    block2.height = animations[i].val1 + 'px';
+                    block1.backgroundColor = SWAP_COLOR;
+                    block2.backgroundColor = SWAP_COLOR;
+                }, i * speed);
+                setTimeout(() => {
+                    block1.backgroundColor = DEFAULT_COLOR;
+                    block2.backgroundColor = DEFAULT_COLOR;
+                }, i * speed + speed);
+            } else if (animations[i].type === 'highlightStart'){
+                const block1 = arrayBars[animations[i].pos1].style;
+                const block2 = arrayBars[animations[i].pos2].style;
+                setTimeout(() => {
+                    block1.backgroundColor = PIVOT_COLOR;
+                    block2.backgroundColor = PIVOT_COLOR;
+                }, i * speed);
+            } else if (animations[i].type === 'highlightEnd'){
+                const block1 = arrayBars[animations[i].pos1].style;
+                const block2 = arrayBars[animations[i].pos2].style;
+                setTimeout(() => {
+                    block1.backgroundColor = DEFAULT_COLOR;
+                    block2.backgroundColor = DEFAULT_COLOR;
+                }, i * speed);
             }
         }
     }
@@ -131,32 +163,41 @@ class Sort extends Component {
     // Merge Sort Start
 
     // Quick Sort Start
-    quickSort = (arr, low, high) => {
+    quickSort = (arr, low, high, animations) => {
         if(low < high){
-            const middle = this.quickPartition(arr, low, high);
-            this.quickSort(arr, low, middle);
-            this.quickSort(arr, middle+1, high);
+            const middle = this.quickPartition(arr, low, high, animations);
+            this.quickSort(arr, low, middle, animations);
+            this.quickSort(arr, middle+1, high, animations);
         }
-        return arr;
     }
 
-    quickPartition = (arr, low, high) => {
-        const pivot = arr[Math.floor((high+low)/2)];
+    quickPartition = (arr, low, high, animations) => {
+        const mid = Math.floor((high+low)/2);
+        const pivot = arr[mid];
+        animations.push({type: 'highlightStart', pos1: mid, pos2: mid});
         let i = low;
         let j = high;
+        animations.push({type: 'highlight', pos1: i, pos2: j});
         while(true){
             while(pivot > arr[i]){
                 i++;
+                animations.push({type: 'highlight', pos1: i, pos2: j});
             }
             while(pivot < arr[j]){
                 j--;
+                animations.push({type: 'highlight', pos1: i, pos2: j});
             }
             if(i >= j){
+                animations.push({type: 'highlightEnd', pos1: mid, pos2: mid});
+                this.setState({animations});
                 return j;
             }
+            animations.push({type: 'swap', pos1: i, val1: arr[i], pos2: j, val2: arr[j]});
             this.swap(arr, i, j);
             i++;
+            animations.push({type: 'highlight', pos1: i, pos2: j});
             j--;
+            animations.push({type: 'highlight', pos1: i, pos2: j});
         }
     }
 
