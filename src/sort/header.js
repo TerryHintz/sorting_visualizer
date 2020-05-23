@@ -38,7 +38,7 @@ class Header extends Component {
                         <Button
                             color='primary'
                             variant="contained"
-                            className={this.props.working ? 'disable-button' : null}
+                            className={this.props.working ? 'disable-button header-button' : 'header-button'}
                             disabled={this.props.working}
                             onClick={() => this.props.randomizeArray(this.state.numsInput, true)}
                         >
@@ -60,7 +60,7 @@ class Header extends Component {
                             return (
                                 <Button
                                     disabled={this.props.working}
-                                    className={this.props.working ? 'disable-button header-button' : 'header-button'}
+                                    className={this.props.working ? 'sort-alg disable-button header-button' : 'sort-alg header-button'}
                                     style={{backgroundColor: this.props.selected === method ? 'rgb(220, 0, 78)' : '#3f51b5'}}
                                     key={method}
                                     variant='contained'
