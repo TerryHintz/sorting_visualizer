@@ -9,7 +9,7 @@ const HIGHTLIGHT_COLOR = 'Gold';
 const DEFAULT_COLOR = 'cornflowerblue';
 const SWAP_COLOR = 'FireBrick';
 const PIVOT_COLOR = 'RebeccaPurple';
-const DONE_COLOR = 'LimeGreen';
+const DONE_COLOR = 'YellowGreen';
 
 const speed_dictionary = {
     Slowest: 1000,

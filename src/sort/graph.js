@@ -10,7 +10,11 @@ class Graph extends Component {
                         <div
                             id={index}
                             key={index}
-                            style={{height: num + 'px', width: this.props.block_width}}
+                            style={{
+                                height: num + 'px',
+                                width: this.props.block_width,
+                                margin: '0 0.5px'
+                            }}
                             className='number-block'>
                         </div>
                     )
