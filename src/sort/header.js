@@ -3,7 +3,6 @@ import './sort.css';
 import Button from '@material-ui/core/Button';
 
 const sorting_methods = [
-    "Animate",
     "Merge Sort",
     "Quick Sort",
     "Heap Sort",
@@ -17,7 +16,10 @@ class Header extends Component {
     }
 
     handleChange = (event) =>{
-        const {name, value} = event.target;
+        let {name, value} = event.target;
+        if(value > 1000){
+            value = 1000;
+        }
         this.setState({[name]: value})
     }
 
@@ -44,6 +46,16 @@ class Header extends Component {
                         </Button>
                     </div>
                     <div className='header-section'>
+                        <Button
+                            disabled={this.props.working}
+                            className={this.props.working ? 'disable-button header-button' : 'header-button'}
+                            style={{backgroundColor: 'limegreen'}}
+                            key={'animate'}
+                            variant='contained'
+                            onClick={() => this.props.handleSort('Animate', [], 0)}
+                        >
+                            {'Animate'}
+                        </Button>
                         {sorting_methods.map((method) => {
                             return (
                                 <Button
