@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './sort.css';
 import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
 
 const sorting_methods = [
     "Merge Sort",
@@ -13,6 +14,7 @@ const sorting_methods = [
 class Header extends Component {
     state = {
         numsInput: 100,
+        drawer: false,
     }
 
     handleChange = (event) =>{
@@ -21,6 +23,10 @@ class Header extends Component {
             value = 1000;
         }
         this.setState({[name]: value})
+    }
+
+    toggleDrawer = () => {
+        this.setState({drawer: !this.state.drawer})
     }
 
     render() {
@@ -70,7 +76,28 @@ class Header extends Component {
                                 </Button>
                             )
                         })}
+                        <Button
+                            className={this.props.working ? 'mobile-sort disable-button header-button' : 'mobile-sort header-button'}
+                            style={{backgroundColor: '#3f51b5'}}
+                            onClick={() => this.toggleDrawer()}
+                        >
+                            {'Algorithms'}
+                        </Button>
                     </div>
+                    <Drawer anchor={'bottom'} open={this.state.drawer} onClose={() => this.toggleDrawer()}>
+                        {sorting_methods.map((method) => {
+                            return (
+                                <div
+                                    key={method + ' mobile'}
+                                    onClick={() => this.props.handleSort(method, [], 0)}
+                                    style={{backgroundColor: this.props.selected === method ? 'salmon' : 'white'}}
+                                    className='mobile-button'
+                                >
+                                    {method}
+                                </div>
+                            )
+                        })}
+                    </Drawer>
                 </div>
         )
     }
