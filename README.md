@@ -1,4 +1,4 @@
-[Demo Available](https://leozhang.gaurmand.com)
+[Demo Available](http://leozhang.gaurmand.com)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
