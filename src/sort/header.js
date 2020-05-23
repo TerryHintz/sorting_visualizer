@@ -25,7 +25,7 @@ class Header extends Component {
         return(
             <div className='header'>
                     <div className='header-section'>
-                        <span className='header-text'>{'Number of Integers:'}</span>
+                        <span className='header-text'>{'Numbers:'}</span>
                         <input
                             type='text'
                             className='header-input'
@@ -40,7 +40,7 @@ class Header extends Component {
                             disabled={this.props.working}
                             onClick={() => this.props.randomizeArray(this.state.numsInput, true)}
                         >
-                            {'Randomize'}
+                            {'Random'}
                         </Button>
                     </div>
                     <div className='header-section'>
