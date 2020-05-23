@@ -37,7 +37,7 @@ class Sort extends Component {
         let arr = [];
         let i=0;
         for(i; i<numbers; i++){
-            const randomNum = Math.floor(Math.random() * 500) + 10;
+            const randomNum = Math.floor(Math.random() * 640) + 10;
             arr.push(randomNum);
         }
         this.setState({arr, numbers});
