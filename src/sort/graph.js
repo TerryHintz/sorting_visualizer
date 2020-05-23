@@ -3,8 +3,11 @@ import './sort.css'
 
 class Graph extends Component {
     render() {
+
+        const graphHeight = window.innerHeight - 250;
+
         return(
-            <div className='sort-container'>
+            <div style={{height: graphHeight}} className='sort-container'>
                 {this.props.arr.map((num, index) => {
                     return (
                         <div

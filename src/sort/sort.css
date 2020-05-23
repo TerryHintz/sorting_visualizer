@@ -1,3 +1,7 @@
+.root {
+    min-height: 100vh;
+}
+
 .number-block {
     background-color: cornflowerblue;
 }
@@ -7,7 +11,7 @@
     align-items: flex-end;
     width: 95%;
     margin: auto;
-    height: 650px;
+    min-height: 625px;
 }
 
 .header {
@@ -57,4 +61,20 @@
     display: flex;
     justify-content: space-evenly;
     max-width: 500px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-name {
+    margin: 0 10px;
+    font-size: 20px;
+    color: gray;
+}
+
+.github-icon {
+    height: 25px;
 }

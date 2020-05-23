@@ -37,7 +37,7 @@ class Sort extends Component {
         let arr = [];
         let i=0;
         for(i; i<numbers; i++){
-            const randomNum = Math.floor(Math.random() * 640) + 10;
+            const randomNum = Math.floor(Math.random() * 615) + 10;
             arr.push(randomNum);
         }
         this.setState({arr, numbers});
@@ -365,7 +365,7 @@ class Sort extends Component {
         const block_width = window.innerWidth / this.state.numbers;
 
         return(
-            <div>
+            <div className='root'>
                 <Header
                     randomizeArray = {this.randomizeArray}
                     handleSort = {this.handleSort}
@@ -381,6 +381,11 @@ class Sort extends Component {
                     handleSpeed = {this.handleSpeed}
                     working = {this.state.working}
                 />
+                <div className='footer'>
+                    <img className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
+                    <a className='my-name' href='https://github.com/TerryHintz'>{"Leo Zhang"}</a>
+                    <img className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
+                </div>
             </div>
         )
     }
