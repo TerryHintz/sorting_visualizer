@@ -16,7 +16,7 @@ const speed_dictionary = {
     Slow: 500,
     Medium: 100,
     Fast: 20,
-    Fastest: 5,
+    Fastest: 3,
 }
 
 var timeouts = [];
@@ -25,7 +25,7 @@ class Sort extends Component {
     state = {
         arr: [],
         animations: [],
-        numbers: 100,
+        numbers: 50,
         method: "Merge Sort",
         speed: 'Medium',
         working: false,

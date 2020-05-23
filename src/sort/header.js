@@ -13,7 +13,7 @@ const sorting_methods = [
 
 class Header extends Component {
     state = {
-        numsInput: 100,
+        numsInput: 50,
         drawer: false,
     }
 
