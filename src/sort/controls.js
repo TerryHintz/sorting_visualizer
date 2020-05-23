@@ -13,7 +13,8 @@ class Controls extends Component{
                 {speeds.map((speed) => {
                     return(
                         <Button
-                            className='header-button'
+                            className={this.props.working ? 'disable-button header-button' : 'header-button'}
+                            disabled={this.props.working}
                             style={{backgroundColor: this.props.selected === speed ? 'rgb(220, 0, 78)' : '#3f51b5'}}
                             variant='contained'
                             onClick={() => this.props.handleSpeed(speed)}

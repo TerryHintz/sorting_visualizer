@@ -36,6 +36,8 @@ class Header extends Component {
                         <Button
                             color='primary'
                             variant="contained"
+                            className={this.props.working ? 'disable-button' : null}
+                            disabled={this.props.working}
                             onClick={() => this.props.randomizeArray(this.state.numsInput, true)}
                         >
                             {'Randomize'}
@@ -45,7 +47,8 @@ class Header extends Component {
                         {sorting_methods.map((method) => {
                             return (
                                 <Button
-                                    className='header-button'
+                                    disabled={this.props.working}
+                                    className={this.props.working ? 'disable-button header-button' : 'header-button'}
                                     style={{backgroundColor: this.props.selected === method ? 'rgb(220, 0, 78)' : '#3f51b5'}}
                                     key={method}
                                     variant='contained'

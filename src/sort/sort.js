@@ -26,6 +26,7 @@ class Sort extends Component {
         numbers: 100,
         method: "Merge Sort",
         speed: 'Medium',
+        working: false,
     }
 
     componentDidMount(){
@@ -93,6 +94,7 @@ class Sort extends Component {
     }
 
     animate = () => {
+        this.setState({working: true});
         const speed = speed_dictionary[this.state.speed];
         let delay = 1;
         if(this.state.method === 'Merge Sort'){
@@ -101,6 +103,9 @@ class Sort extends Component {
         const animations = this.state.animations;
         const len = animations.length;
         const arrayBars = document.getElementsByClassName('number-block');
+        
+        let temp = 0;
+
         for(let i = 0; i<len; i++){
             if(animations[i].type === 'set'){
                 const block = arrayBars[animations[i].pos].style;
@@ -155,7 +160,11 @@ class Sort extends Component {
                     block.backgroundColor = DONE_COLOR;
                 }, i * speed);
             }
+            temp++;
         }
+        setTimeout(() => {
+            this.setState({working: false});
+        }, temp * speed);
     }
 
     swap = (arr, i, j) => {
@@ -361,6 +370,7 @@ class Sort extends Component {
                     randomizeArray = {this.randomizeArray}
                     handleSort = {this.handleSort}
                     selected = {this.state.method}
+                    working = {this.state.working}
                 />
                 <Graph
                     arr = {this.state.arr}
@@ -369,6 +379,7 @@ class Sort extends Component {
                 <Controls
                     selected = {this.state.speed}
                     handleSpeed = {this.handleSpeed}
+                    working = {this.state.working}
                 />
             </div>
         )

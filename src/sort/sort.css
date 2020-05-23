@@ -26,6 +26,11 @@
     align-items: center;
 }
 
+.disable-button {
+    box-shadow: none !important;
+    background-color: #a6a6a6 !important;
+}
+
 .header-button {
     color: white !important;
     margin: 0 8px !important;
