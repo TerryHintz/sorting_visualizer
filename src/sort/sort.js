@@ -3,6 +3,7 @@ import './sort.css';
 
 import Graph from './graph';
 import Header from './header';
+import Controls from './controls';
 
 const HIGHTLIGHT_COLOR = 'Gold';
 const DEFAULT_COLOR = 'cornflowerblue';
@@ -10,12 +11,21 @@ const SWAP_COLOR = 'FireBrick';
 const PIVOT_COLOR = 'RebeccaPurple';
 const DONE_COLOR = 'LimeGreen';
 
+const speed_dictionary = {
+    Slowest: 1000,
+    Slow: 500,
+    Medium: 100,
+    Fast: 20,
+    Fastest: 5,
+}
+
 class Sort extends Component {
     state = {
         arr: [],
         animations: [],
         numbers: 100,
-        method: "Merge Sort"
+        method: "Merge Sort",
+        speed: 'Medium',
     }
 
     componentDidMount(){
@@ -26,7 +36,7 @@ class Sort extends Component {
         let arr = [];
         let i=0;
         for(i; i<numbers; i++){
-            const randomNum = Math.floor(Math.random() * 500) + 1;
+            const randomNum = Math.floor(Math.random() * 500) + 10;
             arr.push(randomNum);
         }
         this.setState({arr, numbers});
@@ -43,6 +53,10 @@ class Sort extends Component {
             const block = arrayBars[i].style;
             block.backgroundColor = DEFAULT_COLOR;
         }
+    }
+
+    handleSpeed = (speed) => {
+        this.setState({speed});
     }
 
     handleSort = (method, arr, nums) => {
@@ -79,10 +93,7 @@ class Sort extends Component {
     }
 
     animate = () => {
-        const speed = 10;
-        // slow = 500
-        // med = 100
-        // fast = 10
+        const speed = speed_dictionary[this.state.speed];
         let delay = 1;
         if(this.state.method === 'Merge Sort'){
             delay = 2;
@@ -354,6 +365,10 @@ class Sort extends Component {
                 <Graph
                     arr = {this.state.arr}
                     block_width = {block_width}
+                />
+                <Controls
+                    selected = {this.state.speed}
+                    handleSpeed = {this.handleSpeed}
                 />
             </div>
         )

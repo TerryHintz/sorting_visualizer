@@ -45,10 +45,10 @@ class Header extends Component {
                         {sorting_methods.map((method) => {
                             return (
                                 <Button
-                                    style={{margin: '0 8px'}}
+                                    className='header-button'
+                                    style={{backgroundColor: this.props.selected === method ? 'rgb(220, 0, 78)' : '#3f51b5'}}
                                     key={method}
-                                    color= {this.props.selected === method ? 'secondary' : 'primary'} 
-                                    variant="contained"
+                                    variant='contained'
                                     onClick={() => this.props.handleSort(method, [], 0)}
                                 >
                                     {method}
