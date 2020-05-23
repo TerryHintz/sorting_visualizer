@@ -349,6 +349,7 @@ class Sort extends Component {
                 <Header
                     randomizeArray = {this.randomizeArray}
                     handleSort = {this.handleSort}
+                    selected = {this.state.method}
                 />
                 <Graph
                     arr = {this.state.arr}

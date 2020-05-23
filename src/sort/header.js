@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './sort.css';
+import Button from '@material-ui/core/Button';
 
 const sorting_methods = [
     "Animate",
@@ -32,18 +33,26 @@ class Header extends Component {
                             value={this.state.numsInput}
                             onChange={this.handleChange}
                         />
-                        <span className='header-button' onClick={() => this.props.randomizeArray(this.state.numsInput, true)}>{'Randomize'}</span>
+                        <Button
+                            color='primary'
+                            variant="contained"
+                            onClick={() => this.props.randomizeArray(this.state.numsInput, true)}
+                        >
+                            {'Randomize'}
+                        </Button>
                     </div>
                     <div className='header-section'>
                         {sorting_methods.map((method) => {
                             return (
-                                <span
+                                <Button
+                                    style={{margin: '0 8px'}}
                                     key={method}
-                                    className='header-button'
+                                    color= {this.props.selected === method ? 'secondary' : 'primary'} 
+                                    variant="contained"
                                     onClick={() => this.props.handleSort(method, [], 0)}
                                 >
                                     {method}
-                                </span>
+                                </Button>
                             )
                         })}
                     </div>
