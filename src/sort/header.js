@@ -53,14 +53,13 @@ class Header extends Component {
                     </div>
                     <div className='header-section'>
                         <Button
-                            disabled={this.props.working}
-                            className={this.props.working ? 'disable-button header-button' : 'header-button'}
-                            style={{backgroundColor: 'limegreen'}}
+                            className={'header-button'}
+                            style={{backgroundColor: this.props.working ? 'red' : 'limegreen'}}
                             key={'animate'}
                             variant='contained'
-                            onClick={() => this.props.handleSort('Animate', [], 0)}
+                            onClick={() => this.props.working ? this.props.stop() : this.props.handleSort('Animate', [], 0)}
                         >
-                            {'Animate'}
+                            {this.props.working ? 'Terminate' : 'Animate'}
                         </Button>
                         {sorting_methods.map((method) => {
                             return (

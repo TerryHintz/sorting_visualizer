@@ -12,12 +12,14 @@ const PIVOT_COLOR = 'RebeccaPurple';
 const DONE_COLOR = 'YellowGreen';
 
 const speed_dictionary = {
-    Slowest: 1000,
+    Slowest: 2000,
     Slow: 500,
     Medium: 100,
     Fast: 20,
     Fastest: 5,
 }
+
+var timeouts = [];
 
 class Sort extends Component {
     state = {
@@ -93,8 +95,17 @@ class Sort extends Component {
         }
     }
 
+    stop = () => {
+        for (var i=0; i<timeouts.length; i++) {
+            clearTimeout(timeouts[i]);
+        }
+        this.setState({working: false});
+        this.resetColor();
+    }
+
     animate = () => {
         this.setState({working: true});
+        
         const speed = speed_dictionary[this.state.speed];
         let delay = 1;
         if(this.state.method === 'Merge Sort'){
@@ -109,62 +120,62 @@ class Sort extends Component {
         for(let i = 0; i<len; i++){
             if(animations[i].type === 'set'){
                 const block = arrayBars[animations[i].pos].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block.height = animations[i].val + 'px';
                     block.backgroundColor = SWAP_COLOR;
-                }, i * speed);
-                setTimeout(() => {
+                }, i * speed));
+                timeouts.push(window.setTimeout(() => {
                     block.backgroundColor = DEFAULT_COLOR;
-                }, i * speed + speed);
+                }, i * speed + speed));
             } else if (animations[i].type === 'highlight') {
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block1.backgroundColor = HIGHTLIGHT_COLOR;
                     block2.backgroundColor = HIGHTLIGHT_COLOR;
-                }, i * speed);
-                setTimeout(() => {
+                }, i * speed));
+                timeouts.push(window.setTimeout(() => {
                 block1.backgroundColor = DEFAULT_COLOR;
                 block2.backgroundColor = DEFAULT_COLOR;
-                }, i * speed + delay*speed);
+                }, i * speed + delay*speed));
             } else if (animations[i].type === 'swap'){
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block1.height = animations[i].val2 + 'px';
                     block2.height = animations[i].val1 + 'px';
                     block1.backgroundColor = SWAP_COLOR;
                     block2.backgroundColor = SWAP_COLOR;
-                }, i * speed);
-                setTimeout(() => {
+                }, i * speed));
+                timeouts.push(window.setTimeout(() => {
                     block1.backgroundColor = DEFAULT_COLOR;
                     block2.backgroundColor = DEFAULT_COLOR;
-                }, i * speed + speed);
+                }, i * speed + speed));
             } else if (animations[i].type === 'highlightStart'){
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block1.backgroundColor = PIVOT_COLOR;
                     block2.backgroundColor = PIVOT_COLOR;
-                }, i * speed);
+                }, i * speed));
             } else if (animations[i].type === 'highlightEnd'){
                 const block1 = arrayBars[animations[i].pos1].style;
                 const block2 = arrayBars[animations[i].pos2].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block1.backgroundColor = DEFAULT_COLOR;
                     block2.backgroundColor = DEFAULT_COLOR;
-                }, i * speed);
+                }, i * speed));
             } else if (animations[i].type === 'done'){
                 const block = arrayBars[animations[i].pos].style;
-                setTimeout(() => {
+                timeouts.push(window.setTimeout(() => {
                     block.backgroundColor = DONE_COLOR;
-                }, i * speed);
+                }, i * speed));
             }
             temp++;
         }
-        setTimeout(() => {
+        timeouts.push(window.setTimeout(() => {
             this.setState({working: false});
-        }, temp * speed);
+        }, temp * speed));
     }
 
     swap = (arr, i, j) => {
@@ -369,6 +380,7 @@ class Sort extends Component {
                 <Header
                     randomizeArray = {this.randomizeArray}
                     handleSort = {this.handleSort}
+                    stop = {this.stop}
                     selected = {this.state.method}
                     working = {this.state.working}
                 />
