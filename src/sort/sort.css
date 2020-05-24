@@ -11,7 +11,7 @@
     align-items: flex-end;
     width: 95%;
     margin: auto;
-    min-height: 625px;
+    min-height: 550px;
 }
 
 .header {
@@ -89,6 +89,15 @@
     padding: 10px;
     font-size: 20px;
     font-weight: 600;
+}
+
+@media only screen and (max-width: 1175px) {
+    .sort-alg {
+        display: none !important;
+    }
+    .mobile-sort {
+        display: block !important;
+    }
 }
 
 @media only screen and (max-width: 500px) {
