@@ -5,7 +5,7 @@ import Graph from './graph';
 import Header from './header';
 import Controls from './controls';
 
-const HIGHTLIGHT_COLOR = 'Gold';
+const HIGHTLIGHT_COLOR = '#ffcc66';
 const DEFAULT_COLOR = 'cornflowerblue';
 const SWAP_COLOR = 'FireBrick';
 const PIVOT_COLOR = 'RebeccaPurple';
