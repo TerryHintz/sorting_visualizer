@@ -91,6 +91,15 @@
     font-weight: 600;
 }
 
+@media only screen and (max-width: 1175px) {
+    .sort-alg {
+        display: none !important;
+    }
+    .mobile-sort {
+        display: block !important;
+    }
+}
+
 @media only screen and (max-width: 500px) {
     .sort-alg {
         display: none !important;
