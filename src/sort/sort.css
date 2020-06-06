@@ -64,7 +64,7 @@
     max-width: 500px;
 }
 
-.footer {
+.footer-sort {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,6 +89,13 @@
     padding: 10px;
     font-size: 20px;
     font-weight: 600;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1350px) {
+    .sort-alg {
+        font-size: 10px !important;
+    }
 }
 
 @media only screen and (max-width: 1175px) {

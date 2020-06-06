@@ -74,24 +74,28 @@ class Sort extends Component {
         this.setState({method});
         if(method === 'Merge Sort'){
             let copy = arr.slice(0);
-            const res = this.mergeSort(copy, 0, nums-1, []);
-            console.log(res);
+            this.mergeSort(copy, 0, nums-1, []);
+            // console.log(res);
         } else if(method === 'Quick Sort'){
             let copy = arr.slice(0);
-            const res = this.quickSort(copy, 0, nums-1, []);
-            console.log(res);
+            this.quickSort(copy, 0, nums-1, []);
+            // console.log(res);
         } else if(method === 'Bubble Sort'){
             let copy = arr.slice(0);
-            const res = this.bubbleSort(copy, []);
-            console.log(res);
+            this.bubbleSort(copy, []);
+            // console.log(res);
         } else if(method === 'Heap Sort'){
             let copy = arr.slice(0);
-            const res = this.heapSort(copy, []);
-            console.log(res);
+            this.heapSort(copy, []);
+            // console.log(res);
         } else if(method === 'Insertion Sort'){
             let copy = arr.slice(0);
-            const res = this.InsertionSort(copy, []);
-            console.log(res);
+            this.InsertionSort(copy, []);
+            // console.log(res);
+        } else if(method === 'Stalin Sort'){
+            let copy = arr.slice(0);
+            this.stalinSort(copy, []);
+            // console.log(res);
         }
     }
 
@@ -371,6 +375,22 @@ class Sort extends Component {
     }
     // Insertion Sort End
 
+    // Stalin Sort Start
+    stalinSort = (arr, animations) => {
+        const nums = arr.length;
+        let low = 0;
+        for(let i=0; i<nums; i++){
+            if(arr[i] < low){
+                animations.push({type: 'set', pos: i, val: 0});
+            } else {
+                low = arr[i];
+                animations.push({type: 'done', pos: i});
+            }
+        }
+        this.setState({animations});
+    }
+    // Stalin Sort End
+
     render() {
 
         const block_width = window.innerWidth / this.state.numbers;
@@ -393,10 +413,10 @@ class Sort extends Component {
                     handleSpeed = {this.handleSpeed}
                     working = {this.state.working}
                 />
-                <div className='footer'>
-                    <img className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
+                <div className='footer-sort'>
+                    <img alt='github' className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
                     <a className='my-name' href='https://github.com/TerryHintz'>{"Leo Zhang"}</a>
-                    <img className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
+                    <img alt='github' className='github-icon' src={require('../images/GitHub-Mark-32px.png')}></img>
                 </div>
             </div>
         )

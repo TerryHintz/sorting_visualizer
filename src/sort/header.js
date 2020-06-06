@@ -9,6 +9,7 @@ const sorting_methods = [
     "Heap Sort",
     "Bubble Sort",
     "Insertion Sort",
+    "Stalin Sort",
 ];
 
 class Header extends Component {
